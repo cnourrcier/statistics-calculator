@@ -19,12 +19,15 @@ const getMode = (array) => {
             counts[el] = 1;
         }
     })
-    if (new Set(Object.values(counts)).size === 1) {
-        return null;
-    }
 
-    const highest = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
-    const mode = Object.keys(counts).filter(el => counts[el] === counts[highest]);
+    const frequencies = Object.values(counts);
+    const maxFrequency = Math.max(...frequencies);
+
+    if (frequencies.filter(freq => freq === maxFrequency).length === frequencies.length) {
+        return "No mode";
+    };
+
+    const mode = Object.keys(counts).filter(el => counts[el] === maxFrequency);
     return mode.join(', ');
 };
 
